@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block title %}
+<title>LabMan | Stats</title>
+{% endblock %}
+
+{% block content_header %}
+<h1>Statistics</h1>
+<ol class="breadcrumb">
+  <li><a href="/overview"><i class="fa fa-dashboard"></i>Overview</a></li>
+  <li><a href="/overview/stats">stats</a></li>
+  <li class="active">member</li>
+</ol>
+{% endblock %}
+
+{% set chart_titles = ["Supervisor", "Admission year"] %}
+
+{% block content %}
+<div class="row">
+  {% for title in chart_titles %}
+  <div class="col-md-6">
+    {{ macros.bar_chart(title) }}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{{ macros.chart_common_js() }}
+{{ macros.bar_chart_js("/stats/member") }}
+{% endblock %}

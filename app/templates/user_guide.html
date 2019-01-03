@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>LabMan | User guide</title>
+{% endblock %}
+
+{% block content_header %}
+<h1>User guide</h1>
+<ol class="breadcrumb">
+  <li><a href="/overview"><i class="fa fa-dashboard"></i>Home</a></li>
+  <li class="active">user guide</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="callout callout-info">
+  <h4>If you have further questions or suggestions, please</h4>
+  <ul>
+    <li><a href="https://github.com/hellock/labman/issues/new">Open an issue</a></li>
+    <li>Or contact chenkaidev[at]gmail[dot]com</li>
+  </ul>
+</div>
+<div class="box box-widget">
+  <div class="box-body">
+    <img class="img-responsive pad" src="/static/img/guide.jpg" alt="User Guide">
+  </div>
+</div>
+{% endblock %}

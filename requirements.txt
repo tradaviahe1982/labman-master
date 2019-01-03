@@ -1,0 +1,6 @@
+flask
+flask-mail
+pymongo
+log4mongo
+bibtexparser
+Pillow

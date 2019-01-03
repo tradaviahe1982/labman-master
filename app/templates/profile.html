@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block title %}
+<title>LabMan | Profile</title>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/jquery.fileupload.css">
+{% endblock %}
+
+{% block content_header %}
+<h1>Profile</h1>
+<ol class="breadcrumb">
+  <li><a href="/overview"><i class="fa fa-dashboard"></i>Home</a></li>
+  <li class="active">profile</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="box box-info">
+  <div class="box-body">
+    <div class="col-md-3">
+      <form id="file_avatar" action="/profile/avatar" method="POST" enctype="multipart/form-data">
+        <span class="btn btn-info fileinput-button">
+          <i class="fa fa-upload"></i><span> Upload a new photo</span>
+          <input type="file" name="file" multiple>
+        </span>
+      </form>
+    </div>
+    <div class="col-md-5">
+      <p><strong>Tips:</strong> Uploaded photo should be square, otherwise it will be cropped</p>
+    </div>
+  </div>
+</div>
+<div class="box box-info">
+  <!-- form start -->
+  <form class="form-horizontal" id="form_profile" method="post">
+    {{ macros.profile_form(member, supervisors) }}
+    <div class="box-footer">
+      <p>
+      <div class="pull-right">
+        <button type="button" id="button_edit" class="btn btn-info margin" onclick="toggleEdit()">Cancel</button>
+        <button type="submit" id="button_update" class="btn btn-info margin">Update</button>
+      </div>
+      </p>
+    </div>
+    <!-- /.box-footer -->
+  </form>
+</div>
+{{ macros.publication_table(member.publications) }}
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/jquery.ui.widget.js"></script>
+<script src="/static/js/jquery.fileupload.js"></script>
+<script type="text/javascript">
+  $(function () {
+    // $("#form_profile :input").attr("readonly", true);
+    // $("#button_update").attr("disabled", true);
+    $("#file_avatar").fileupload({
+      dataType: "json",
+      done: function (e, data) {
+        location.reload(true);
+      }
+    });
+  });
+  $("#button_edit").click(function() {
+    if ($("#button_edit").text() == "Edit") {
+      $("#button_edit").text("Cancel");
+      $("#form_profile :input").attr("readonly", false);
+      $("#button_update").attr("disabled", false);
+    } else {
+      $("#button_edit").text("Edit");
+      $("#form_profile :input").attr("readonly", true);
+      $("#button_update").attr("disabled", true);
+    }
+  });
+</script>
+{{ macros.input_mask() }}
+{{ macros.select_default(member) }}
+{{ macros.publication_js() }}
+{% endblock %}
